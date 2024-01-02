@@ -168,7 +168,6 @@ public class BoardService {
 
     public void update(Long id, Board updateBboard, MultipartFile uploadFiles) throws IOException {
         Board updatedBoard = update(id, updateBboard);
-//        boardFileRepository.deleteBoardFileByBoardId(id);
 
         BoardFile boardFile = new BoardFile();
         String url = urlPrefix + "prj3/" + id + "/" + uploadFiles.getOriginalFilename();
@@ -177,7 +176,11 @@ public class BoardService {
         boardFile.setBoard(updatedBoard);
         boardFileRepository.save(boardFile);    //boardFile 테이블에 files 정보(fileName, fileUrl) 저장
         upload(uploadFiles, id);
+    }
 
+    public void removeFileIds(List<Long> removeFileIds){
+        //기존 이미지 삭제
+        removeFileIds.forEach(fileId->boardFileRepository.deleteById(fileId));
     }
 
     public void delete(Long id) {

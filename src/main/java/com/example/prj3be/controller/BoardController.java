@@ -71,14 +71,19 @@ public class BoardController {
     @PreAuthorize("hasRole('ADMIN')")
     public void update(@PathVariable Long id,
                        Board updateBboard,
+                       @RequestParam(value="removeFileIds[]", required = false) List<Long> removeFileIds,
                        @RequestParam(value = "uploadFiles", required = false) MultipartFile uploadFiles) throws IOException {
-        System.out.println("updateBboard = " + updateBboard);
+        System.out.println("updateBboard.getBoardFiles() = " + updateBboard.getBoardFiles());
         System.out.println("uploadFiles = " + uploadFiles);
+        System.out.println("removeFileIds = " + removeFileIds);
         System.out.println("updateBboard.getStockQuantity() = " + updateBboard.getStockQuantity());
+
+        if(removeFileIds != null){
+            boardService.removeFileIds(removeFileIds);
+        }
 
         if (uploadFiles == null) {
             boardService.update(id, updateBboard);
-
         } else {
             boardService.update(id, updateBboard, uploadFiles);
         }

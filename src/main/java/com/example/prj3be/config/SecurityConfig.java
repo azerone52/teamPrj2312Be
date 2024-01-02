@@ -63,7 +63,7 @@ public class SecurityConfig{
                                 .requestMatchers("/error").authenticated()
 
 
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
                 )
 
                 //세션을 사용하지 않으므로 STATELESS로 설정

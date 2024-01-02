@@ -39,3 +39,4 @@ custom.properties
 
 ### Querydsl ###
 #/src/main/generated/
+/src/main/resources/build/
